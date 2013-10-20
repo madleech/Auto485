@@ -1,0 +1,28 @@
+#########################################
+# Syntax Coloring Map for Auto485 library
+#########################################
+
+#########################################
+# Datatypes (KEYWORD1)
+#########################################
+
+Auto485     KEYWORD1
+
+#########################################
+# Methods and Functions (KEYWORD2)
+#########################################
+
+begin       KEYWORD2
+end         KEYWORD2
+available   KEYWORD2
+peek        KEYWORD2
+read        KEYWORD2
+flush       KEYWORD2
+write       KEYWORD2
+set_mode    KEYWORD2
+
+#########################################
+# Constants (LITERAL1)
+#########################################
+RX
+TX
