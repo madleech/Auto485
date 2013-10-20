@@ -9,10 +9,6 @@ Auto485 is a small helper library that takes some of the tedium out of RS485 com
 
 If you prefer to do things manually, there is an explicit `.set_mode(..)` function that lets you toggle between tranmit and receive mode.
 
-For documentation and examples please see the [project blog][1].
-
-[1]: http://utrainia.michael.net.nz/46-simulating-railroad-crossing-lights
-
 Requirements
 ------------
 * An Arduino -- http://arduino.cc/
@@ -21,9 +17,9 @@ Requirements
 
 Installation
 ------------
-Download the ZIP archive (https://github.com/madleech/RS485/zipball/master) and extract it to your Arduino folder under `libraries/RS485`.
+Download the ZIP archive (https://github.com/madleech/Auto485/zipball/master) and extract it to your Arduino folder under `libraries/RS485`.
 
-Restart the Arduino IDE and you should see in File > Examples > RS485 entires for 'hello world' or so on.
+Restart the Arduino IDE and you should see in File > Examples > Auto485 entires for 'echo' or so on.
 
 
 Code Examples
