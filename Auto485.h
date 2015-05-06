@@ -43,6 +43,7 @@ class Auto485 : public Stream
 		size_t  write(uint8_t);
 		void    flush(void);
 		void    begin(unsigned long);
+		void    begin(unsigned long, uint8_t);
 		void    end(void);
 		int     available(void);
 		int     peek(void);

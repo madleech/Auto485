@@ -70,6 +70,9 @@ Creates a new Auto485 object using the specified serial port. Usually the defaul
 **Auto485::TX**, **Auto485::RX**
 These are constants to let you toggle the mode of the bus.
 
+**begin(baud), begin(baud, config)**
+Initiate a serial connection at the given speed, and optionally with the given config settings (e.g. `SERIAL_8N2` to use two stop bits, etc).
+
 **set_mode(Auto485::TX)**, **set_mode(Auto485::RX)**
 Manually change to transmit or receive mode. When returning to receive mode, the function will pause until all pending serial data has been sent.
 

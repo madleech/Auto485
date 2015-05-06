@@ -53,6 +53,11 @@ void Auto485::begin(unsigned long baud)
 	_serial.begin(baud);
 }
 
+void Auto485::begin(unsigned long baud, uint8_t config)
+{
+	_serial.begin(baud, config);
+}
+
 void Auto485::end(void) {
 	_serial.end();
 }
