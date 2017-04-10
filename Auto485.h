@@ -48,7 +48,18 @@ class Auto485 : public Stream
 		int     available(void);
 		int     peek(void);
 		int     read(void);
-		size_t  println(void);
+		size_t println(const __FlashStringHelper *);
+    		size_t println(const String &s);
+    		size_t println(const char[]);
+    		size_t println(char);
+    		size_t println(unsigned char, int = DEC);
+    		size_t println(int, int = DEC);
+    		size_t println(unsigned int, int = DEC);
+    		size_t println(long, int = DEC);
+    		size_t println(unsigned long, int = DEC);
+    		size_t println(double, int = 2);
+    		size_t println(const Printable&);
+    		size_t println(void);
 		using   Print::println;
 		
 private:
