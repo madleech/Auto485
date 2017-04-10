@@ -49,7 +49,7 @@ void loop() {
 }
 ```
 
-We start off by defining the Driver Enable pin (`DE_PIN`), and Receiver Enable pin (`DE_PIN`). Usually these pins will be connected together on the MAX485, so you can just use the same pin here.
+We start off by defining the Driver Enable pin (`DE_PIN`), and Receiver Enable pin (`RE_PIN`). Usually these pins will be connected together on the MAX485, so you can just use the same pin here.
 
 Next we initialise the bus at 9600bps, just like you would with `Serial.begin(9600)`. Then we print out some text using `.println(...)`. Println handles the bus state for us, changing to TX mode then back to RX mode.
 
