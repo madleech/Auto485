@@ -29,12 +29,18 @@
 Auto485::Auto485(int DE_pin, int RE_pin, HardwareSerial &serial_port)
 : _DE_pin(DE_pin)
 , _RE_pin(RE_pin == -1 ? DE_pin : RE_pin)
-, _serial(serial_port)
+, _pins_initialized(false)
 , _mode(RX)
+, _serial(serial_port)
+{
+}
+
+void Auto485::init_pins(void)
 {
 	pinMode(_DE_pin, OUTPUT); // defaults to LOW = read mode
 	if (_DE_pin != _RE_pin)
 		pinMode(_RE_pin, OUTPUT); // defaults to LOW = read mode
+	_pins_initialized = true;
 }
 
 void Auto485::set_mode(enum Mode mode)
@@ -50,6 +56,7 @@ void Auto485::set_mode(enum Mode mode)
 
 void Auto485::begin(unsigned long baud)
 {
+	init_pins();
 	_serial.begin(baud);
 }
 
@@ -58,6 +65,7 @@ void Auto485::begin(unsigned long baud, uint8_t config)
 #ifdef ESP8266
 	_serial.begin(baud, (SerialConfig)config);
 #else
+	init_pins();
 	_serial.begin(baud, config);
 #endif
 }

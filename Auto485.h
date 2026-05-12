@@ -63,8 +63,10 @@ class Auto485 : public Stream
 		size_t  println(void);
 
 private:
+		void    init_pins(void);
 		int     _DE_pin;
 		int     _RE_pin;
+		bool    _pins_initialized;
 		enum    Mode _mode;
 		HardwareSerial& _serial;
 };
