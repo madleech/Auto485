@@ -55,7 +55,11 @@ void Auto485::begin(unsigned long baud)
 
 void Auto485::begin(unsigned long baud, uint8_t config)
 {
+#ifdef ESP8266
+	_serial.begin(baud, (SerialConfig)config);
+#else
 	_serial.begin(baud, config);
+#endif
 }
 
 void Auto485::end(void) {
