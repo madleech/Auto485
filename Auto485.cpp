@@ -77,7 +77,6 @@ int Auto485::read(void)
 	return _serial.read();
 }
 
-
 size_t Auto485::write(uint8_t c)
 {
 	if (_mode != TX) set_mode(TX);
@@ -90,12 +89,12 @@ void Auto485::flush(void)
 	set_mode(RX);
 }
 
-
-size_t Auto485::println(void)
+size_t Auto485::println(const __FlashStringHelper *ifsh)
 {
-	 size_t n = Print::println();
-         set_mode(RX);
-	 return n;
+	size_t n = Print::print(ifsh);
+	n += Print::println();
+	set_mode(RX);
+	return n;
 }
 
 size_t Auto485::println(const String &s)
@@ -106,83 +105,81 @@ size_t Auto485::println(const String &s)
 	return n;
 }
 
-size_t Auto485::println(const __FlashStringHelper *ifsh)
-{
-  size_t n = Print::print(ifsh);
-  n += Print::println();
-  set_mode(RX);
-  return n;
-}
-
 size_t Auto485::println(const char c[])
 {
-  size_t n = Auto485::print(c);
-  n += Auto485::println();
-  set_mode(RX);
-  return n;
+	size_t n = Print::print(c);
+	n += Print::println();
+	set_mode(RX);
+	return n;
 }
 
 size_t Auto485::println(char c)
 {
-  size_t n = Print::print(c);
-  n += Print::println();
-  set_mode(RX);
-  return n;
-}
-
-
-size_t Auto485::println(const Printable& x)
-{
-  size_t n = Print::print(x);
-  n += Print::println();
-  set_mode(RX);
-  return n;
+	size_t n = Print::print(c);
+	n += Print::println();
+	set_mode(RX);
+	return n;
 }
 
 size_t Auto485::println(unsigned char b, int base)
 {
-  size_t n = Print::print(b, base);
-  n += Print::println();
-  set_mode(RX);
-  return n;
+	size_t n = Print::print(b, base);
+	n += Print::println();
+	set_mode(RX);
+	return n;
 }
 
 size_t Auto485::println(int num, int base)
 {
-  size_t n = Print::print(num, base);
-  n += Print::println();
-  set_mode(RX);
-  return n;
+	size_t n = Print::print(num, base);
+	n += Print::println();
+	set_mode(RX);
+	return n;
 }
 
 size_t Auto485::println(unsigned int num, int base)
 {
-  size_t n = Print::print(num, base);
-  n += Print::println();
-  set_mode(RX);
-  return n;
+	size_t n = Print::print(num, base);
+	n += Print::println();
+	set_mode(RX);
+	return n;
 }
 
 size_t Auto485::println(long num, int base)
 {
-  size_t n = Print::print(num, base);
-  n += Print::println();
-  set_mode(RX);
-  return n;
+	size_t n = Print::print(num, base);
+	n += Print::println();
+	set_mode(RX);
+	return n;
 }
 
 size_t Auto485::println(unsigned long num, int base)
 {
-  size_t n = Print::print(num, base);
-  n += Print::println();
-  set_mode(RX);
-  return n;
+	size_t n = Print::print(num, base);
+	n += Print::println();
+	set_mode(RX);
+	return n;
 }
 
 size_t Auto485::println(double num, int digits)
 {
-  size_t n = Print::print(num, digits);
-  n += Print::println();
-  set_mode(RX);
-  return n;
+	size_t n = Print::print(num, digits);
+	n += Print::println();
+	set_mode(RX);
+	return n;
+}
+
+size_t Auto485::println(const Printable& x)
+{
+	size_t n = Print::print(x);
+	n += Print::println();
+	set_mode(RX);
+	return n;
+}
+
+size_t Auto485::println(void)
+{
+	size_t n = Print::println();
+	set_mode(RX);
+	return n;
 }

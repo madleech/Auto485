@@ -40,6 +40,7 @@ class Auto485 : public Stream
 		enum    Mode {TX, RX};
 		
 		void    set_mode(enum Mode);
+		using   Print::write;
 		size_t  write(uint8_t);
 		void    flush(void);
 		void    begin(unsigned long);
@@ -48,20 +49,19 @@ class Auto485 : public Stream
 		int     available(void);
 		int     peek(void);
 		int     read(void);
-		size_t println(const __FlashStringHelper *);
-    		size_t println(const String &s);
-    		size_t println(const char[]);
-    		size_t println(char);
-    		size_t println(unsigned char, int = DEC);
-    		size_t println(int, int = DEC);
-    		size_t println(unsigned int, int = DEC);
-    		size_t println(long, int = DEC);
-    		size_t println(unsigned long, int = DEC);
-    		size_t println(double, int = 2);
-    		size_t println(const Printable&);
-    		size_t println(void);
-		using   Print::println;
-		
+		size_t  println(const __FlashStringHelper *);
+		size_t  println(const String &);
+		size_t  println(const char[]);
+		size_t  println(char);
+		size_t  println(unsigned char, int = DEC);
+		size_t  println(int, int = DEC);
+		size_t  println(unsigned int, int = DEC);
+		size_t  println(long, int = DEC);
+		size_t  println(unsigned long, int = DEC);
+		size_t  println(double, int = 2);
+		size_t  println(const Printable&);
+		size_t  println(void);
+
 private:
 		int     _DE_pin;
 		int     _RE_pin;
