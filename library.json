@@ -1,0 +1,25 @@
+{
+    "name": "Auto485",
+    "version": "1.0.0",
+    "description": "Auto485 - a small helper library that takes some of the tedium out of RS485 communication. It automatically handles the DE/RE pin toggling for half-duplex RS485 transceivers.",
+    "keywords": "RS485, communication, serial, auto485, arduino",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/madleech/Auto485.git"
+    },
+    "authors": [
+        {
+            "name": "Michael Adams",
+            "url": "http://www.michael.net.nz",
+            "maintainer": true
+        }
+    ],
+    "license": "MIT",
+    "frameworks": "arduino",
+    "platforms": "*",
+    "headers": "Auto485.h",
+    "build": {
+        "srcDir": ".",
+        "includeDir": "."
+    }
+}
