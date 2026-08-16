@@ -59,6 +59,7 @@ void Auto485::begin(unsigned long baud, uint8_t config)
 }
 
 void Auto485::end(void) {
+	set_mode(RX);
 	_serial.end();
 }
 
