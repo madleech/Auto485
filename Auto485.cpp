@@ -1,53 +1,48 @@
 /*
-	Auto485 - a small helper library that takes some of the tedium out of RS485
-	communication.
-	Copyright (C) 2012 Michael Adams (www.michael.net.nz)
-	All rights reserved.
-	
-	Permission is hereby granted, free of charge, to any person obtaining a 
-	copy of this software and associated documentation files (the "Software"), 
-	to deal in the Software without restriction, including without limitation 
-	the rights to use, copy, modify, merge, publish, distribute, sublicense, 
-	and/or sell copies of the Software, and to permit persons to whom the 
-	Software is furnished to do so, subject to the following conditions:
-	
-	The above copyright notice and this permission notice shall be included 
-	in all copies or substantial portions of the Software.
-	
-	THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS 
-	OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, 
-	FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE 
-	AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER 
-	LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, 
-	OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE 
-	SOFTWARE.
+    Auto485 - a small helper library that takes some of the tedium out of RS485
+    communication.
+    Copyright (C) 2012 Michael Adams (www.michael.net.nz)
+    All rights reserved.
+
+    Permission is hereby granted, free of charge, to any person obtaining a
+    copy of this software and associated documentation files (the "Software"),
+    to deal in the Software without restriction, including without limitation
+    the rights to use, copy, modify, merge, publish, distribute, sublicense,
+    and/or sell copies of the Software, and to permit persons to whom the
+    Software is furnished to do so, subject to the following conditions:
+
+    The above copyright notice and this permission notice shall be included
+    in all copies or substantial portions of the Software.
+
+    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+    OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+    AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+    SOFTWARE.
 */
 
 #include "Auto485.h"
 #include <Arduino.h>
 
 Auto485::Auto485(int DE_pin, int RE_pin, HardwareSerial &serial_port)
-: _DE_pin(DE_pin)
-, _RE_pin(RE_pin == -1 ? DE_pin : RE_pin)
-, _pins_initialized(false)
-, _mode(RX)
-, _serial(serial_port)
+    : _DE_pin(DE_pin), _RE_pin(RE_pin == -1 ? DE_pin : RE_pin), _mode(RX), _serial(serial_port)
 {
 }
 
-void Auto485::init_pins(void)
+void Auto485::_init_pins(void)
 {
 	pinMode(_DE_pin, OUTPUT); // defaults to LOW = read mode
 	if (_DE_pin != _RE_pin)
 		pinMode(_RE_pin, OUTPUT); // defaults to LOW = read mode
-	_pins_initialized = true;
 }
 
 void Auto485::set_mode(enum Mode mode)
 {
 	if (_mode == TX && mode == RX)
 		_serial.flush(); // finish writing if we're moving into RX mode
-	
+
 	_mode = mode;
 	digitalWrite(_DE_pin, _mode == TX); // high if TX, low if RX
 	if (_DE_pin != _RE_pin)
@@ -56,7 +51,7 @@ void Auto485::set_mode(enum Mode mode)
 
 void Auto485::begin(unsigned long baud)
 {
-	init_pins();
+	_init_pins();
 	_serial.begin(baud);
 }
 
@@ -65,12 +60,13 @@ void Auto485::begin(unsigned long baud, uint8_t config)
 #ifdef ESP8266
 	_serial.begin(baud, (SerialConfig)config);
 #else
-	init_pins();
+	_init_pins();
 	_serial.begin(baud, config);
 #endif
 }
 
-void Auto485::end(void) {
+void Auto485::end(void)
+{
 	set_mode(RX);
 	_serial.end();
 }
@@ -92,7 +88,8 @@ int Auto485::read(void)
 
 size_t Auto485::write(uint8_t c)
 {
-	if (_mode != TX) set_mode(TX);
+	if (_mode != TX)
+		set_mode(TX);
 	return _serial.write(c);
 }
 
@@ -182,7 +179,7 @@ size_t Auto485::println(double num, int digits)
 	return n;
 }
 
-size_t Auto485::println(const Printable& x)
+size_t Auto485::println(const Printable &x)
 {
 	size_t n = Print::print(x);
 	n += Print::println();
