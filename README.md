@@ -7,7 +7,7 @@ Auto485 - Automatic RS485 Wrapper Class
 
 Auto485 is a small helper library that takes some of the tedium out of RS485 communication. It presents an identical interface to the standard `Serial` object, so you can `.println(...)`, `.available()`, `.read()` and so on, while under the hood, Auto485 will handle toggling between receive and transmit mode on the MAX485 or compatible chip.
 
-If you prefer to do things manually, there is an explicit `.set_mode(..)` function that lets you toggle between tranmit and receive mode.
+If you prefer to do things manually, there is an explicit `.set_mode(..)` function that lets you toggle between transmit and receive mode.
 
 Requirements
 ------------
