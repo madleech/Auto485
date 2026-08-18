@@ -1,0 +1,85 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  format:
+    name: clang-format
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - name: Check formatting
+        uses: jidicula/clang-format-action@v4.13.0
+        with:
+          clang-format-version: "17"
+          check-path: "."
+
+  lint:
+    name: arduino-lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - name: Lint library
+        uses: arduino/arduino-lint-action@v3
+        with:
+          # Use "submit" until the library is accepted into the Library Manager
+          # index; switch to "update" once it is listed.
+          library-manager: submit
+          compliance: strict
+
+  compile:
+    name: compile examples
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        board:
+          # Each board carries the platform(s) the FQBN needs. AVR ships with
+          # the Arduino CLI; the ESP cores are pulled from their package indexes.
+          - fqbn: arduino:avr:uno
+            platforms: |
+              - name: arduino:avr
+          - fqbn: arduino:avr:mega
+            platforms: |
+              - name: arduino:avr
+          - fqbn: esp8266:esp8266:nodemcuv2
+            platforms: |
+              - name: esp8266:esp8266
+                source-url: https://arduino.esp8266.com/stable/package_esp8266com_index.json
+          - fqbn: esp32:esp32:esp32
+            platforms: |
+              - name: esp32:esp32
+                source-url: https://espressif.github.io/arduino-esp32/package_esp32_index.json
+          - fqbn: rp2040:rp2040:rpipico
+            platforms: |
+              - name: rp2040:rp2040
+                source-url: https://github.com/earlephilhower/arduino-pico/releases/download/global/package_rp2040_index.json
+    steps:
+      - uses: actions/checkout@v7
+      - name: Compile example sketches
+        uses: arduino/compile-sketches@v1
+        with:
+          fqbn: ${{ matrix.board.fqbn }}
+          platforms: ${{ matrix.board.platforms }}
+          libraries: |
+            - source-path: ./
+            - source-url: https://github.com/madleech/Auto485.git
+          sketch-paths: |
+            - examples/echo
+            - examples/periodic_transmit_1
+            - examples/periodic_transmit_2
+
+  test:
+    name: native unit tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.x"
+      - name: Install PlatformIO
+        run: pip install --upgrade platformio
+      - name: Run tests
+        run: pio test -e native
