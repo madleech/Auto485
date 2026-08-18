@@ -68,7 +68,8 @@ class String
 	String()
 	{
 	}
-	String(const char *s) : _s(s)
+	String(const char *s)
+	    : _s(s)
 	{
 	}
 	const char *c_str() const

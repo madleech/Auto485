@@ -24,7 +24,9 @@ jobs:
       - name: Lint library
         uses: arduino/arduino-lint-action@v3
         with:
-          library-manager: update
+          # Use "submit" until the library is accepted into the Library Manager
+          # index; switch to "update" once it is listed.
+          library-manager: submit
           compliance: strict
 
   compile:
