@@ -1,0 +1,14 @@
+# Mac crap
+.DS_Store
+
+
+#############
+## PlatformIO
+#############
+
+.pio/
+.pioenvs/
+.piolibdeps/
+.vscode/
+*.o
+*.a
